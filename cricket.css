@@ -378,6 +378,14 @@ button:active {
     color: #ff4444;
     font-weight: bold;
 }
+.miss {
+    background: #555;
+    color: white;
+}
+
+.miss:hover {
+    background: #777;
+}
 
 @media (max-width: 768px) {
     .cricket-board {

@@ -100,6 +100,20 @@ function hitNumber(n) {
     }
 }
 
+function miss() {
+
+    if (gameOver) return;
+
+    throwNum++;
+
+    if (throwNum > 3) {
+        throwNum = 1;
+        nextPlayer();
+    }
+
+    updateDisplay();
+}
+
 function checkWin() {
     // 終了条件: 全てクローズしたプレイヤーの中で、スコアが全体最低の場合に終了
     const minScore = Math.min(...players.map(p => p.score));
@@ -220,6 +234,14 @@ window.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener('click', () => hitNumber(n));
             buttonsEl.appendChild(btn);
         });
+
+        const missBtn = document.createElement('button');
+        missBtn.textContent = 'MISS';
+        missBtn.classList.add('miss');
+
+        missBtn.addEventListener('click', () => miss());
+
+        buttonsEl.appendChild(missBtn);
     }
 
     const playerCount = parseInt(localStorage.getItem('playerCount') || '0', 10);
