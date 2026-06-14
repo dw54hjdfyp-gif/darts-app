@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darts COUNT UP</title>
+    <link rel="stylesheet" href="countup.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>COUNT UP</h1>
+        <div class="turn-display">TURN <span id="turnCurrent">1</span> / <span id="turnMax">8</span></div>
+
+        <div id="playerScores" class="player-scores"></div>
+
+        <!-- ゲーム画面 -->
+        <div id="gameArea" style="display: none;">
+
+            <h2 id="currentPlayer">
+                PLAYER 1
+            </h2>
+        </div>
+
+        <div class="score" id="score">
+            0
+        </div>
+
+        <div class="info">
+            ROUND <span id="round">1</span> / 8
+            <br>
+            THROW <span id="throw">1</span> / 3
+        </div>
+
+        <div class="multiplier">
+            <button id="singleBtn" class="mode active">SINGLE</button>
+            <button id="doubleBtn" class="mode">DOUBLE</button>
+            <button id="tripleBtn" class="mode">TRIPLE</button>
+        </div>
+
+        <div class="buttons" id="buttons"></div>
+
+    </div>
+
+    <script src="countup.js"></script>
+
+    <div id="resultOverlay" class="result-overlay" style="display:none">
+        <div class="result-card" id="resultCard">
+            <h2 id="resultTitle">RESULT</h2>
+            <div class="result-scores" id="resultScores"></div>
+            <div class="result-buttons">
+                <button id="resultRetry">もう一度</button>
+                <button id="resultHome">ホーム画面へ</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

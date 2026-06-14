@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRICKET</title>
+
+    <link rel="stylesheet" href="cricket.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1 id="gameTitle">CRICKET</h1>
+        <div class="turn-display">TURN <span id="turnCurrent">1</span> / <span id="turnMax">20</span></div>
+
+        <div id="playerScores" class="player-scores"></div>
+
+        <div id="gameArea" style="display: none;">
+            <h2 id="currentPlayer">PLAYER 1</h2>
+        </div>
+
+        <style>
+            .cricket-board {
+                display: grid;
+                grid-template-columns: minmax(70px, auto) 90px minmax(70px, auto);
+                gap: 16px;
+                margin-top: 10px;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                align-items: stretch;
+            }
+            .marks-side {
+                display: flex;
+                flex-direction: row;
+                gap: 12px;
+                min-width: 0;
+            }
+            .mark-column {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 4px;
+                min-width: 70px;
+            }
+            .mark-row {
+                height: 34px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 42px;
+            }
+            .number-column {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 4px;
+                min-width: 90px;
+                padding-top: 40px;
+            }
+            .number-row {
+                height: 34px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 44px;
+                font-weight: bold;
+                color: #fff;
+            }
+            @media (max-width:600px) {
+                .cricket-board {
+                    gap: 10px;
+                    grid-template-columns: minmax(60px, auto) 70px minmax(60px, auto);
+                }
+                .mark-column {
+                    min-width: 60px;
+                }
+                .number-column {
+                    min-width: 70px;
+                }
+                .mark-row, .number-row {
+                    width: 32px;
+                    height: 28px;
+                    font-size: 12px;
+                }
+            }
+            /* result overlay */
+            .result-overlay {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(0,0,0,0.6);
+                z-index: 9999;
+            }
+            .result-card {
+                background: #0b1220;
+                color: #fff;
+                padding: 24px;
+                border-radius: 12px;
+                max-width: 420px;
+                width: 90%;
+                text-align: center;
+                box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+            }
+            .result-card h2 { margin-bottom: 12px; }
+            .result-scores { text-align: left; margin: 12px 0; }
+            .result-buttons { display:flex; gap:12px; justify-content:center; margin-top:12px; }
+            .result-buttons button { padding:8px 12px; border-radius:8px; border:none; cursor:pointer; }
+        </style>
+
+        <div id="cricketBoard" class="cricket-board">
+
+            <div id="leftMarks" class="marks-side"></div>
+
+            <div class="number-column">
+                <div class="number-row">20</div>
+                <div class="number-row">19</div>
+                <div class="number-row">18</div>
+                <div class="number-row">17</div>
+                <div class="number-row">16</div>
+                <div class="number-row">15</div>
+                <div class="number-row">BULL</div>
+            </div>
+
+            <div id="rightMarks" class="marks-side"></div>
+
+        </div>
+
+        <div class="info">
+            CLOSE: 20,19,18,17,16,15,BULL
+        </div>
+
+        <div class="multiplier">
+            <button id="singleBtn" class="mode active">SINGLE</button>
+            <button id="doubleBtn" class="mode">DOUBLE</button>
+            <button id="tripleBtn" class="mode">TRIPLE</button>
+        </div>
+
+        <div class="buttons" id="buttons"></div>
+
+    </div>
+
+    <div id="resultOverlay" class="result-overlay" style="display:none">
+        <div class="result-card" id="resultCard">
+            <h2 id="resultTitle">PLAYER X WIN!</h2>
+            <div class="result-scores" id="resultScores"></div>
+            <div class="result-buttons">
+                <button id="resultRetry">もう一度</button>
+                <button id="resultHome">ホーム画面へ</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="cricket.js"></script>
+
+</body>
+</html>
