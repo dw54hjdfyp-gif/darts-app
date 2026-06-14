@@ -262,3 +262,4 @@ function showResultOverlay(title, scores) {
     if (retryBtn) { retryBtn.innerText = 'もう一度'; retryBtn.onclick = () => { location.reload(); } }
     if (homeBtn) { homeBtn.innerText = 'ホーム画面へ'; homeBtn.onclick = () => { location.href = 'home.html'; } }
 }
+console.log("MISS追加テスト");
