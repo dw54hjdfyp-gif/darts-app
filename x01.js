@@ -98,8 +98,6 @@ function addScore(point) {
 
     // ブラスト（0未満）はバースト
     if (newRemaining < 0) {
-        showResultOverlay('BUST!', [{ name: `PLAYER ${currentPlayer+1}`, score: players[currentPlayer].remaining }]);
-        // バーストはそのターン開始時の残り点に戻す
         player.remaining = turnStartRemaining;
         // 次プレイヤーへ
         nextTurnAfterBust();
