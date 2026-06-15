@@ -117,30 +117,30 @@ function miss() {
 function checkWin() {
     const player = players[currentPlayer];
 
-    const closed = numbers.every(
-        n => player.marks[n] >= 3
-    );
+    // 全部クローズしたか
+    const closed = numbers.every(n => player.marks[n] >= 3);
 
     if (!closed) return;
 
     let win = false;
 
     if (players.length === 2) {
-        //通常クリケット
+        // 通常クリケット（高得点勝ち）
         const maxScore = Math.max(...players.map(p => p.score));
         win = player.score >= maxScore;
     } else {
-        //カットスロート
+        // カットスロート（低得点勝ち）
         const minScore = Math.min(...players.map(p => p.score));
         win = player.score <= minScore;
     }
+
     if (win) {
         gameOver = true;
 
         showResultOverlay(
-            'PLAYER ${currentPlayer + 1} WIN',
+            `PLAYER ${currentPlayer + 1} WIN!`,
             players.map((pl, idx) => ({
-                name: 'P${idx + 1}',
+                name: `P${idx + 1}`,
                 score: pl.score
             }))
         );
@@ -148,33 +148,59 @@ function checkWin() {
 }
 
 function nextPlayer() {
-    if (turnCount >= 20) {
+    if (gameOver) return;
 
-    let winnerIdx;
+    const previousPlayer = currentPlayer;
 
-    if (players.length === 2) {
-        // 通常クリケット（高得点勝ち）
-        const maxScore = Math.max(...players.map(p => p.score));
-        winnerIdx = players.findIndex(p => p.score === maxScore);
+    currentPlayer = (currentPlayer + 1) % players.length;
+    throwNum = 1;
 
-    } else {
-        // カットスロート（低得点勝ち）
-        const minScore = Math.min(...players.map(p => p.score));
-        winnerIdx = players.findIndex(p => p.score === minScore);
+    // 全員が投げ終わったら1ターン加算
+    if (currentPlayer === 0 &&
+        previousPlayer === players.length - 1) {
+
+        turnCount++;
+
+        // 20ターン終了
+        if (turnCount > 20) {
+
+            let winnerIdx;
+
+            if (players.length === 2) {
+                // 通常クリケット
+                const maxScore = Math.max(
+                    ...players.map(p => p.score)
+                );
+
+                winnerIdx = players.findIndex(
+                    p => p.score === maxScore
+                );
+
+            } else {
+                // カットスロート
+                const minScore = Math.min(
+                    ...players.map(p => p.score)
+                );
+
+                winnerIdx = players.findIndex(
+                    p => p.score === minScore
+                );
+            }
+
+            gameOver = true;
+
+            showResultOverlay(
+                `PLAYER ${winnerIdx + 1} WIN!`,
+                players.map((pl, idx) => ({
+                    name: `P${idx + 1}`,
+                    score: pl.score
+                }))
+            );
+
+            return;
+        }
     }
 
-    gameOver = true;
-
-    showResultOverlay(
-        `PLAYER ${winnerIdx + 1} WIN!`,
-        players.map((pl, idx) => ({
-            name: `P${idx + 1}`,
-            score: pl.score
-        }))
-    );
-
-    return;
-}
     updateDisplay();
 }
 
